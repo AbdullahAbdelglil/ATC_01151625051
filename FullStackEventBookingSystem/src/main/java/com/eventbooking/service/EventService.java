@@ -1,0 +1,29 @@
+package com.eventbooking.service;
+
+import java.util.Optional;
+
+import com.eventbooking.service.dto.EventDTO;
+import com.eventbooking.service.dto.HomePageEventDTO;
+import com.eventbooking.web.errors.BadRequestAlertException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+/**
+ * Service Interface for managing {@link com.eventbooking.domain.Event}.
+ */
+public interface EventService {
+
+    EventDTO save(EventDTO eventDTO);
+
+    EventDTO update(Long id, EventDTO eventDTO) throws BadRequestAlertException;
+
+    Optional<EventDTO> partialUpdate(EventDTO eventDTO);
+
+    Page<EventDTO> findAll(Pageable pageable);
+
+    Page<HomePageEventDTO> getAllEvents(Pageable pageable);
+
+    Optional<EventDTO> findOne(Long id);
+
+    void delete(Long id);
+}
