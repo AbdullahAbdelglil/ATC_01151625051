@@ -25,15 +25,15 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api/events")
-public class EventResource {
+public class EventController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EventResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EventController.class);
 
     private final EventService eventService;
 
     private final EventRepository eventRepository;
 
-    public EventResource(EventService eventService, EventRepository eventRepository) {
+    public EventController(EventService eventService, EventRepository eventRepository) {
         this.eventService = eventService;
         this.eventRepository = eventRepository;
     }

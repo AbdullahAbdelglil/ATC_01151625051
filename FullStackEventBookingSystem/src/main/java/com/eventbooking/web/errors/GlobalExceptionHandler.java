@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
         List<String> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(err -> err.getField() + " " + err.getDefaultMessage())
+                .map(err -> err.getField() + ": " + err.getDefaultMessage())
                 .collect(Collectors.toList());
 
         ValidationErrorResponse response = new ValidationErrorResponse(HttpStatus.BAD_REQUEST.value(), errors);
