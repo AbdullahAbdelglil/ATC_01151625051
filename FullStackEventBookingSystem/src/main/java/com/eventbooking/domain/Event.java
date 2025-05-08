@@ -12,7 +12,7 @@ import java.util.Objects;
  * An Event.
  */
 @Entity
-@Table(name = "events")
+@Table(name = "event")
 public class Event implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,7 +22,6 @@ public class Event implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank(message = "name is mandatory")
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -36,19 +35,15 @@ public class Event implements Serializable {
     @Column(name = "category")
     private String category;
 
-    @NotNull(message = "date is mandatory")
     @Column(name = "date", nullable = false)
-    @Future(message = "date must be in the future")
     private LocalDate date;
 
-    @NotNull(message = "venue is mandatory")
     @Column(name = "venue", nullable = false)
     private String venue;
 
     @Column(name = "price")
     private BigDecimal price;
 
-    @NotNull(message = "image is mandatory")
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 

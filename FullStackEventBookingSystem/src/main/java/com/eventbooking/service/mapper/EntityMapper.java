@@ -1,5 +1,6 @@
 package com.eventbooking.service.mapper;
 
+import com.eventbooking.service.dto.UserDTO;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
