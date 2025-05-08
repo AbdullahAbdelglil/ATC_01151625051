@@ -2,7 +2,7 @@ package com.eventbooking.service.dto;
 
 public class HomePageEventDTO {
     private Long id;
-    private String name;
+    private String title;
     private String description;
     private String category;
     private String imageUrl;
@@ -10,13 +10,13 @@ public class HomePageEventDTO {
 
 
     public HomePageEventDTO(Long id,
-                            String name,
+                            String title,
                             String description,
                             String category,
                             String imageUrl,
-                           boolean booked) {
+                            boolean booked) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.description = description;
         this.category = category;
         this.imageUrl = imageUrl;
@@ -31,12 +31,12 @@ public class HomePageEventDTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getImageUrl() {

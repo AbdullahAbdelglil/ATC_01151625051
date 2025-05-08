@@ -27,16 +27,16 @@ public class EventDTO implements Serializable {
 
     private String category;
 
-    @NotNull(message = "is mandatory")
+    @NotNull(message = "is required")
     @Future(message = "must be in the future")
     private LocalDate date;
 
-    @NotNull(message = "is mandatory")
+    @NotNull(message = "is required")
     private String venue;
 
     private BigDecimal price = new BigDecimal("0.0");
 
-    @NotBlank(message = "is mandatory")
+    @NotBlank(message = "is required")
     private String imageUrl;
 
     public EventDTO() {
