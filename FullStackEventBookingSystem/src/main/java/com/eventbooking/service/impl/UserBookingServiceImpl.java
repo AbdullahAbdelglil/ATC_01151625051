@@ -14,7 +14,6 @@ public class UserBookingServiceImpl implements UserBookingService {
 
     private final EventService eventService;
 
-
     public UserBookingServiceImpl(BookingService bookingService,
                                   EventService eventService) {
         this.bookingService = bookingService;
