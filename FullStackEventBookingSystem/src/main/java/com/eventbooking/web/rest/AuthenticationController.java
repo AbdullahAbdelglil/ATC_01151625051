@@ -1,9 +1,10 @@
 package com.eventbooking.web.rest;
 
 import com.eventbooking.service.AuthenticationService;
+import com.eventbooking.service.dto.JwtAuthenticationResponse;
+import com.eventbooking.service.dto.SignInRequestDTO;
 import com.eventbooking.service.dto.SignUpRequestDTO;
 import com.eventbooking.service.dto.UserDTO;
-import com.eventbooking.web.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,15 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<UserDTO> signUp(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO) {
-        UserDTO userDTO = authenticationService.signUp(signUpRequestDTO);
+    @PostMapping("/register")
+    public ResponseEntity<UserDTO> register(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO) {
+        UserDTO userDTO = authenticationService.register(signUpRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<JwtAuthenticationResponse> login(@RequestBody SignInRequestDTO signInRequestDTO) {
+        JwtAuthenticationResponse jwtAuthResponse = authenticationService.login(signInRequestDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(jwtAuthResponse);
     }
 }

@@ -22,6 +22,8 @@ public interface UserService {
 
     Optional<UserDTO> findOne(Long id);
 
+    Optional<UserDTO> findOne(String email);
+
     void delete(Long id);
     
     boolean existsByEmail(String email);

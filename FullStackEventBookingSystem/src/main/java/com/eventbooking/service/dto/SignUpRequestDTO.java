@@ -1,6 +1,5 @@
 package com.eventbooking.service.dto;
 
-import com.eventbooking.domain.enums.Role;
 import com.eventbooking.service.annotations.UniqueEmail;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

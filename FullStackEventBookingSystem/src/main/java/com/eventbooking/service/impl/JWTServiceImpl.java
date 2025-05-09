@@ -1,6 +1,7 @@
 package com.eventbooking.service.impl;
 
 import com.eventbooking.service.JWTService;
+import com.eventbooking.service.dto.UserDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 
 @Service
 public class JWTServiceImpl implements JWTService {
@@ -37,6 +39,17 @@ public class JWTServiceImpl implements JWTService {
     }
 
     @Override
+    public String generateToken(UserDTO user) {
+        log.debug("generateToken userDTO {}", user);
+        return Jwts.builder()
+                .subject(user.getEmail())
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    @Override
     public String extractUserName(String token) {
         log.debug("extractUserName token {}", token);
         return extractClaim(token, Claims::getSubject);
@@ -46,6 +59,18 @@ public class JWTServiceImpl implements JWTService {
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUserName(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    @Override
+    public String generateRefreshToken(HashMap<String, Object> extraClaims, UserDTO user) {
+        log.debug("generate refresh token userDTO {}", user);
+        return Jwts.builder()
+                .setClaims(extraClaims)
+                .subject(user.getEmail())
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + 604800000 )) // 7 days
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     private boolean isTokenExpired(String token) {
