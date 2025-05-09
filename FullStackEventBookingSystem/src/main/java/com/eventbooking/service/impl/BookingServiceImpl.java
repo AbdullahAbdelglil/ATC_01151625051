@@ -61,6 +61,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public boolean existsByUserEmailAndEventId(String email, Long eventId) {
+        return bookingRepository.existsByUserEmailAndEventId(email, eventId);
+    }
+
+    @Override
     @Transactional
     public void deleteByIdAndUserEmail(Long bookingId, String userEmail) {
         log.debug("Request to delete booking : {}", bookingId);

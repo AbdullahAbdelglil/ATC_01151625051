@@ -1,5 +1,6 @@
 package com.eventbooking.service.impl;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -9,10 +10,12 @@ import com.eventbooking.service.EventService;
 import com.eventbooking.service.dto.EventDTO;
 import com.eventbooking.service.dto.HomePageEventDTO;
 import com.eventbooking.service.mapper.EventMapper;
+import com.eventbooking.util.HomePageUtil;
 import com.eventbooking.web.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +35,8 @@ public class EventServiceImpl implements EventService {
 
     private final EventMapper eventMapper;
 
-
-    public EventServiceImpl(EventRepository eventRepository, EventMapper eventMapper) {
+    public EventServiceImpl(EventRepository eventRepository,
+                            EventMapper eventMapper) {
         this.eventRepository = eventRepository;
         this.eventMapper = eventMapper;
     }
@@ -83,7 +86,14 @@ public class EventServiceImpl implements EventService {
     @Transactional(readOnly = true)
     public Page<HomePageEventDTO> getHomePageEvents(Pageable pageable) {
         LOG.debug("Request to get all Events for home page");
-        return eventRepository.findAllHomePageEvents(pageable);
+        Page<HomePageEventDTO> page = eventRepository.findAllHomePageEvents(pageable);
+
+        List<HomePageEventDTO> content = page.getContent();
+        for (HomePageEventDTO event : content) {
+            event.setBooked(HomePageUtil.bookedEvent(event.getId()));
+        }
+
+        return new PageImpl<>(content, pageable, page.getTotalElements());
     }
 
     @Override
@@ -98,6 +108,8 @@ public class EventServiceImpl implements EventService {
         LOG.debug("Request to delete Event : {}", id);
         eventRepository.deleteById(id);
     }
+
+
 
     private void checkUserInputs(Long id, EventDTO eventDTO) throws BadRequestAlertException {
         if (eventDTO.getId() == null) {

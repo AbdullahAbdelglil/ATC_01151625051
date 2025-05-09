@@ -9,5 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     Page<Booking> findByUserEmail(String userEmail, Pageable pageable);
+
     void deleteByIdAndUserEmail(Long id, String userEmail);
+
+    boolean existsByUserEmailAndEventId(String email, Long eventId);
 }

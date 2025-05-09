@@ -18,4 +18,5 @@ public interface BookingService {
     Page<BookingDTO> getAllBookings(Pageable pageable);
 
 
+    boolean existsByUserEmailAndEventId(String email, Long eventId);
 }
