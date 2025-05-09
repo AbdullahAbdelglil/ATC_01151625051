@@ -2,10 +2,7 @@ package com.eventbooking.web.rest;
 
 import com.eventbooking.service.EventService;
 import com.eventbooking.service.UserBookingService;
-import com.eventbooking.service.dto.BookingDTO;
-import com.eventbooking.service.dto.BookingResponseDTO;
-import com.eventbooking.service.dto.EventDTO;
-import com.eventbooking.service.dto.HomePageEventDTO;
+import com.eventbooking.service.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -43,8 +40,8 @@ public class UserController {
     @GetMapping("/event-details/{eventId}")
     public ResponseEntity<EventDTO> getEventDetails(@PathVariable Long eventId) {
         log.debug("REST request to get event details by id {}", eventId);
-        EventDTO eventDTO = eventService.findOne(eventId).orElseThrow();
-        return ResponseEntity.ok().body(eventDTO);
+        EventDetailsDTO eventDetails = eventService.getEventDetails(eventId);
+        return ResponseEntity.ok().body(eventDetails);
     }
 
     @PostMapping("/book-event/{eventId}")
