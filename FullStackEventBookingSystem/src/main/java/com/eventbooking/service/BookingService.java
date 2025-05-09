@@ -17,5 +17,5 @@ public interface BookingService {
     //For Admin only: get all bookings in the system
     Page<BookingDTO> getAllBookings(Pageable pageable);
 
-
+    boolean existsByUserEmailAndEventId(String email, Long eventId);
 }
