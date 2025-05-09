@@ -43,51 +43,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO update(Long id, UserDTO userDTO) throws BadRequestAlertException {
-        log.debug("Request to update User : {}", userDTO);
-        checkUserInputs(id, userDTO);
-        User user = userMapper.toEntity(userDTO);
-        user = userRepository.save(user);
-        return userMapper.toDto(user);
-    }
-
-    @Override
-    public Optional<UserDTO> partialUpdate(UserDTO userDTO) {
-        log.debug("Request to partially update User : {}", userDTO);
-
-        return userRepository
-                .findById(userDTO.getId())
-                .map(existingUser -> {
-                    userMapper.partialUpdate(existingUser, userDTO);
-
-                    return existingUser;
-                })
-                .map(userRepository::save)
-                .map(userMapper::toDto);
-    }
-
-    @Override
-    public Page<UserDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all Users");
-        return userRepository.findAll(pageable).map(userMapper::toDto);
-    }
-
-    @Override
-    public Optional<UserDTO> findOne(Long id) {
-        log.debug("Request to get User : {}", id);
-        return userRepository.findById(id).map(userMapper::toDto);
-    }
-
-    @Override
     public Optional<UserDTO> findOne(String email) {
         log.debug("Request to get User by email : {}", email);
         return userRepository.findByEmail(email).map(userMapper::toDto);
-    }
-
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete User : {}", id);
-        userRepository.deleteById(id);
     }
 
     @Override
@@ -111,18 +69,5 @@ public class UserServiceImpl implements UserService {
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
-    }
-
-    private void checkUserInputs(Long id, UserDTO userDTO) throws BadRequestAlertException {
-        if (userDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id",  "id-null");
-        }
-        if (!Objects.equals(id, userDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID",  "id-invalid");
-        }
-
-        if (!userRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", "id-notfound");
-        }
     }
 }
