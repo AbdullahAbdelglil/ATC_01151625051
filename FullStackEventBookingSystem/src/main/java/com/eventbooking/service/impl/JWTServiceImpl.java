@@ -4,10 +4,9 @@ import com.eventbooking.service.JWTService;
 import com.eventbooking.service.dto.UserDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.lang.Function;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,84 +16,86 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 @Service
 public class JWTServiceImpl implements JWTService {
 
-    private final static Logger log = LoggerFactory.getLogger(JWTServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(JWTServiceImpl.class);
 
+    private static final long ACCESS_TOKEN_VALIDITY_MS = 1000 * 60 * 60; // 1 hour
+    private static final long REFRESH_TOKEN_VALIDITY_MS = 1000 * 60 * 60 * 24 * 7; // 7 days
 
     @Value("${jwt.secret}")
     private String secret;
 
     @Override
     public String generateToken(UserDetails userDetails) {
-        log.debug("generateToken userDetails {}", userDetails);
-        return Jwts.builder()
-                .subject(userDetails.getUsername())
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-                .compact();
+        log.debug("Generating token for UserDetails: {}", userDetails);
+        return createToken(new HashMap<>(), userDetails.getUsername(), ACCESS_TOKEN_VALIDITY_MS);
     }
 
     @Override
     public String generateToken(UserDTO user) {
-        log.debug("generateToken userDTO {}", user);
-        return Jwts.builder()
-                .subject(user.getEmail())
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-                .compact();
+        log.debug("Generating token for UserDTO: {}", user);
+        return createToken(new HashMap<>(), user.getEmail(), ACCESS_TOKEN_VALIDITY_MS);
+    }
+
+    @Override
+    public String generateRefreshToken(HashMap<String, Object> extraClaims, UserDTO user) {
+        log.debug("Generating refresh token for UserDTO: {}", user);
+        return createToken(extraClaims, user.getEmail(), REFRESH_TOKEN_VALIDITY_MS);
     }
 
     @Override
     public String extractUserName(String token) {
-        log.debug("extract username token {}", token);
+        log.debug("Extracting username from token");
         return extractClaim(token, Claims::getSubject);
     }
 
     @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUserName(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
-    @Override
-    public String generateRefreshToken(HashMap<String, Object> extraClaims, UserDTO user) {
-        log.debug("generate refresh token userDTO {}", user);
+    private String createToken(Map<String, Object> claims, String subject, long validityMs) {
+        Date now = new Date();
+        Date expiration = new Date(now.getTime() + validityMs);
+
         return Jwts.builder()
-                .setClaims(extraClaims)
-                .subject(user.getEmail())
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 604800000 )) // 7 days
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(now)
+                .setExpiration(expiration)
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     private boolean isTokenExpired(String token) {
-        return extractClaim(token, Claims::getExpiration).before(new Date());
+        return extractExpiration(token).before(new Date());
+    }
+
+    private Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
+        Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
-
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parser()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
-                .getBody();
+                .getPayload();
     }
 
     private Key getSigningKey() {
-        byte[] secretKey = Decoders.BASE64.decode(secret);
-        return Keys.hmacShaKeyFor(secretKey);
+        byte[] decodedKey = Decoders.BASE64.decode(secret);
+        return Keys.hmacShaKeyFor(decodedKey);
     }
-
-
 }
