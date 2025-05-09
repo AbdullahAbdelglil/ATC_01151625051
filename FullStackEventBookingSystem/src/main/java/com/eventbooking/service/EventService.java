@@ -21,7 +21,7 @@ public interface EventService {
 
     Page<EventDTO> findAll(Pageable pageable);
 
-    Page<HomePageEventDTO> getAllEvents(Pageable pageable);
+    Page<HomePageEventDTO> getHomePageEvents(Pageable pageable);
 
     Optional<EventDTO> findOne(Long id);
 

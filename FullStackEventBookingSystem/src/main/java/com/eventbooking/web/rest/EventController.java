@@ -80,13 +80,6 @@ public class EventController {
         return ResponseEntity.ok().body(page.getContent());
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<HomePageEventDTO>> getHomePageEvents(Pageable pageable) {
-        LOG.debug("REST request to get a page of home-page Events");
-        Page<HomePageEventDTO> page = eventService.getAllEvents(pageable);
-        return ResponseEntity.ok().body(page.getContent());
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<EventDTO> getEvent(@PathVariable("id") Long id) {
         LOG.debug("REST request to get Event : {}", id);
