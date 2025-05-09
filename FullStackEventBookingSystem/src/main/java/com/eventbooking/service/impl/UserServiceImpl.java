@@ -79,6 +79,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<UserDTO> findOne(String email) {
+        log.debug("Request to get User by email : {}", email);
+        return userRepository.findByEmail(email).map(userMapper::toDto);
+    }
+
+    @Override
     public void delete(Long id) {
         log.debug("Request to delete User : {}", id);
         userRepository.deleteById(id);
