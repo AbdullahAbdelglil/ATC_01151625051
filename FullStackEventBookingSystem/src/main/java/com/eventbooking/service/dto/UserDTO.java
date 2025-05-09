@@ -15,7 +15,6 @@ public class UserDTO {
     @JsonIgnore
     private String password;
 
-    @JsonIgnore
     private Role role;
 
     public UserDTO() {
