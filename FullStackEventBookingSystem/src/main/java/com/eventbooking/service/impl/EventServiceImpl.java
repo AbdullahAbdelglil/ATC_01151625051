@@ -81,7 +81,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<HomePageEventDTO> getAllEvents(Pageable pageable) {
+    public Page<HomePageEventDTO> getHomePageEvents(Pageable pageable) {
         LOG.debug("Request to get all Events for home page");
         return eventRepository.findAllHomePageEvents(pageable);
     }

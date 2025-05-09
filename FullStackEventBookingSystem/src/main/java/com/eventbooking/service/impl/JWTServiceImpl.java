@@ -51,7 +51,7 @@ public class JWTServiceImpl implements JWTService {
 
     @Override
     public String extractUserName(String token) {
-        log.debug("extractUserName token {}", token);
+        log.debug("extract username token {}", token);
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -87,7 +87,7 @@ public class JWTServiceImpl implements JWTService {
                 .parser()
                 .setSigningKey(getSigningKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 

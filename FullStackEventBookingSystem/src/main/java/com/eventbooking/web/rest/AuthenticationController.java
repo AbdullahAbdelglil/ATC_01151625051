@@ -1,10 +1,7 @@
 package com.eventbooking.web.rest;
 
 import com.eventbooking.service.AuthenticationService;
-import com.eventbooking.service.dto.JwtAuthenticationResponse;
-import com.eventbooking.service.dto.SignInRequestDTO;
-import com.eventbooking.service.dto.SignUpRequestDTO;
-import com.eventbooking.service.dto.UserDTO;
+import com.eventbooking.service.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +29,12 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<JwtAuthenticationResponse> login(@RequestBody SignInRequestDTO signInRequestDTO) {
         JwtAuthenticationResponse jwtAuthResponse = authenticationService.login(signInRequestDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(jwtAuthResponse);
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtAuthenticationResponse> refresh(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO) {
+        JwtAuthenticationResponse jwtAuthResponse = authenticationService.refreshToken(refreshTokenRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).body(jwtAuthResponse);
     }
 }
