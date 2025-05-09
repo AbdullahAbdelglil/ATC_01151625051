@@ -3,14 +3,12 @@ package com.eventbooking.service.impl;
 import com.eventbooking.service.AuthenticationService;
 import com.eventbooking.service.JWTService;
 import com.eventbooking.service.UserService;
-import com.eventbooking.service.dto.JwtAuthenticationResponse;
-import com.eventbooking.service.dto.SignInRequestDTO;
-import com.eventbooking.service.dto.SignUpRequestDTO;
-import com.eventbooking.service.dto.UserDTO;
+import com.eventbooking.service.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +37,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public UserDTO register(SignUpRequestDTO signUpRequestDTO) {
         log.debug("signing Up new User UserRequestDTO {}", signUpRequestDTO);
-
         // Hash the password first
         signUpRequestDTO.setPassword(passwordEncoder.encode(signUpRequestDTO.getPassword()));
         UserDTO userDTO = new UserDTO(signUpRequestDTO);
@@ -48,6 +45,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public JwtAuthenticationResponse login(SignInRequestDTO signInRequestDTO) {
+        log.debug("logging In new User UserEmail {}", signInRequestDTO.getEmail());
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         signInRequestDTO.getEmail(),
@@ -62,6 +61,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         JwtAuthenticationResponse response = new JwtAuthenticationResponse();
         response.setAccessToken(accessToken);
+        response.setRefreshToken(refreshToken);
+        return response;
+    }
+
+    @Override
+    public JwtAuthenticationResponse refreshToken(RefreshTokenRequestDTO refreshTokenRequestDTO) {
+        String refreshToken = refreshTokenRequestDTO.getToken();
+        String userEmail = jwtService.extractUserName(refreshToken);
+        UserDTO user = userService.findOne(userEmail).orElseThrow();
+        UserDetails userDetails = userService.userDetailsService().loadUserByUsername(user.getEmail());
+
+        if(!jwtService.isTokenValid(refreshToken, userDetails)) {
+            return JwtAuthenticationResponse.emptyResponse();
+        }
+
+        JwtAuthenticationResponse response = new JwtAuthenticationResponse();
+        String jwtToken = jwtService.generateToken(userDetails);
+        response.setAccessToken(jwtToken);
         response.setRefreshToken(refreshToken);
         return response;
     }

@@ -21,4 +21,8 @@ public class JwtAuthenticationResponse {
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
+
+    public static JwtAuthenticationResponse emptyResponse() {
+        return new JwtAuthenticationResponse();
+    }
 }
