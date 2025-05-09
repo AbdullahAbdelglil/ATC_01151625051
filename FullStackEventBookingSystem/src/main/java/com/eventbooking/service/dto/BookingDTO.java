@@ -1,5 +1,8 @@
 package com.eventbooking.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.PrePersist;
+
 import java.util.Date;
 
 public class BookingDTO {
@@ -26,8 +29,9 @@ public class BookingDTO {
         this.id = id;
     }
 
+    @JsonIgnore
     public UserDTO getUser() {
-        return user;
+        return user != null && user.getRole() != null && user.getRole().name().equals("admin") ? user : null;
     }
 
     public void setUser(UserDTO user) {
@@ -46,7 +50,8 @@ public class BookingDTO {
         return bookingDate;
     }
 
+    @PrePersist
     public void setBookingDate(Date bookingDate) {
-        this.bookingDate = bookingDate;
+        this.bookingDate = new Date(System.currentTimeMillis());
     }
 }

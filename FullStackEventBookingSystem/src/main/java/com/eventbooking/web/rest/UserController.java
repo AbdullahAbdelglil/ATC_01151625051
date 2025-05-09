@@ -1,9 +1,7 @@
 package com.eventbooking.web.rest;
 
-import com.eventbooking.service.BookingService;
 import com.eventbooking.service.EventService;
 import com.eventbooking.service.UserBookingService;
-import com.eventbooking.service.UserService;
 import com.eventbooking.service.dto.BookingDTO;
 import com.eventbooking.service.dto.BookingResponseDTO;
 import com.eventbooking.service.dto.EventDTO;
