@@ -63,4 +63,9 @@ public class Booking {
     public void setBookingDate(Date bookingDate) {
         this.bookingDate = bookingDate;
     }
+
+    @PrePersist
+    public void setBookingDate() {
+        this.bookingDate = new Date(System.currentTimeMillis());
+    }
 }
