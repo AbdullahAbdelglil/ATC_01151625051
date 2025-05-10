@@ -16,7 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -40,6 +42,7 @@ public class BookingServiceImpl implements BookingService {
     public BookingDTO save(BookingDTO bookingDTO) {
         log.debug("Request to save Booking : {}", bookingDTO);
         Booking booking = bookingMapper.toEntity(bookingDTO);
+
         booking = bookingRepository.save(booking);
 
         UserDTO userDTO = customBookingMapper.mapEmailToUserDTO(booking.getUserEmail());
@@ -55,12 +58,6 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Page<BookingDTO> getAllBookings(Pageable pageable) {
-        return null;
-    }
-
-    @Override
     public boolean existsByUserEmailAndEventId(String email, Long eventId) {
         return bookingRepository.existsByUserEmailAndEventId(email, eventId);
     }
@@ -70,6 +67,31 @@ public class BookingServiceImpl implements BookingService {
     public void deleteByIdAndUserEmail(Long bookingId, String userEmail) {
         log.debug("Request to delete booking : {}", bookingId);
         bookingRepository.deleteByIdAndUserEmail(bookingId, userEmail);
+    }
+
+    /**
+     * Get the number of bookings for a specific event
+     * @param eventId the event ID
+     * @return the count of bookings
+     */
+    @Override
+    public Integer getBookingsCountByEventId(Long eventId) {
+        return bookingRepository.countByEventId(eventId);
+    }
+
+    /**
+     * Get all users who booked a specific event
+     * @param eventId the event ID
+     * @return list of UserDTO objects
+     */
+    public List<UserDTO> getUsersByEventId(Long eventId) {
+        List<BookingDTO> bookings = bookingRepository.findByEventId(eventId).stream()
+                .map(bookingMapper::toDto)
+                .toList();
+
+        return bookings.stream()
+                .map(BookingDTO::getUser)
+                .toList();
     }
 
 }

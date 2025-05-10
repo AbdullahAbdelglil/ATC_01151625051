@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping("/event-details/{eventId}")
     public ResponseEntity<EventDTO> getEventDetails(@PathVariable Long eventId) {
         log.debug("REST request to get event details by id {}", eventId);
-        EventDetailsDTO eventDetails = eventService.getEventDetails(eventId);
+        UserViewEventDetailsDTO eventDetails = eventService.getEventDetails(eventId);
         return ResponseEntity.ok().body(eventDetails);
     }
 
@@ -52,10 +52,10 @@ public class UserController {
     }
 
     @GetMapping("/bookings")
-    public ResponseEntity<List<BookingDTO>> getBookings(Pageable pageable) {
+    public ResponseEntity<List<UserViewBookingDTO>> getBookings(Pageable pageable) {
         log.debug("REST request to get bookings");
-        Page<BookingDTO> page = userBookingService.getUserBookings(pageable);
-        return ResponseEntity.ok().body(page.getContent());
+        List<UserViewBookingDTO> userBookings = userBookingService.getUserBookings(pageable);
+        return ResponseEntity.ok().body(userBookings);
     }
 
     @DeleteMapping("/cancel-booking/{bookingId}")

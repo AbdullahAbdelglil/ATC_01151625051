@@ -8,7 +8,7 @@ import com.eventbooking.domain.Event;
 import com.eventbooking.repository.EventRepository;
 import com.eventbooking.service.EventService;
 import com.eventbooking.service.dto.EventDTO;
-import com.eventbooking.service.dto.EventDetailsDTO;
+import com.eventbooking.service.dto.UserViewEventDetailsDTO;
 import com.eventbooking.service.dto.HomePageEventDTO;
 import com.eventbooking.service.mapper.EventMapper;
 import com.eventbooking.util.HomePageUtil;
@@ -105,21 +105,17 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventDetailsDTO getEventDetails(Long id) {
+    public UserViewEventDetailsDTO getEventDetails(Long id) {
         EventDTO eventDTO = findOne(id).orElseThrow();
         Long eventId = eventDTO.getId();
-        return new EventDetailsDTO(
-                eventId,
-                eventDTO.getName(),
-                eventDTO.getDescription(),
-                eventDTO.getAgenda(),
-                eventDTO.getCategory(),
-                eventDTO.getDate(),
-                eventDTO.getVenue(),
-                eventDTO.getPrice(),
-                eventDTO.getImageUrl(),
-                HomePageUtil.bookedEvent(eventId)
-        );
+        UserViewEventDetailsDTO eventDetailsDTO = new UserViewEventDetailsDTO(eventDTO);
+        eventDetailsDTO.setBooked(HomePageUtil.bookedEvent(eventId));
+        return eventDetailsDTO;
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return eventRepository.existsById(id);
     }
 
     @Override

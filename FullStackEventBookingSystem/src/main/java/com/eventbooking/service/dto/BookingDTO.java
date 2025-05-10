@@ -1,9 +1,8 @@
 package com.eventbooking.service.dto;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.PrePersist;
 
 import java.util.Date;
+
 
 public class BookingDTO {
     private Long id;
@@ -14,6 +13,12 @@ public class BookingDTO {
     public BookingDTO(Long id, UserDTO user, EventDTO event, Date bookingDate) {
         this.id = id;
         this.user = user;
+        this.event = event;
+        this.bookingDate = bookingDate;
+    }
+
+    public BookingDTO(Long id, EventDTO event, Date bookingDate) {
+        this.id = id;
         this.event = event;
         this.bookingDate = bookingDate;
     }
@@ -29,9 +34,8 @@ public class BookingDTO {
         this.id = id;
     }
 
-    @JsonIgnore
     public UserDTO getUser() {
-        return user != null && user.getRole() != null && user.getRole().name().equals("admin") ? user : null;
+        return user;
     }
 
     public void setUser(UserDTO user) {
