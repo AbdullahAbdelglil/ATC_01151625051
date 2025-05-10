@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping("/event-details/{eventId}")
     public ResponseEntity<EventDTO> getEventDetails(@PathVariable Long eventId) {
         log.debug("REST request to get event details by id {}", eventId);
-        EventDetailsDTO eventDetails = eventService.getEventDetails(eventId);
+        UserViewEventDetailsDTO eventDetails = eventService.getEventDetails(eventId);
         return ResponseEntity.ok().body(eventDetails);
     }
 

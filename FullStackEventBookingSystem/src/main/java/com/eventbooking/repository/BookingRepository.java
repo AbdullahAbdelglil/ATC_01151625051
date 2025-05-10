@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     Page<Booking> findByUserEmail(String userEmail, Pageable pageable);
@@ -13,4 +15,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     void deleteByIdAndUserEmail(Long id, String userEmail);
 
     boolean existsByUserEmailAndEventId(String email, Long eventId);
+
+    Integer countByEventId(Long eventId);
+
+    List<Booking> findByEventId(Long eventId);
 }

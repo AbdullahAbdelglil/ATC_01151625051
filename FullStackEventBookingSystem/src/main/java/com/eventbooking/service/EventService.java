@@ -3,7 +3,7 @@ package com.eventbooking.service;
 import java.util.Optional;
 
 import com.eventbooking.service.dto.EventDTO;
-import com.eventbooking.service.dto.EventDetailsDTO;
+import com.eventbooking.service.dto.UserViewEventDetailsDTO;
 import com.eventbooking.service.dto.HomePageEventDTO;
 import com.eventbooking.web.errors.BadRequestAlertException;
 import org.springframework.data.domain.Page;
@@ -26,7 +26,9 @@ public interface EventService {
 
     Optional<EventDTO> findOne(Long id);
 
-    EventDetailsDTO getEventDetails(Long id);
+    UserViewEventDetailsDTO getEventDetails(Long id);
+
+    boolean existsById(Long id);
 
     void delete(Long id);
 }

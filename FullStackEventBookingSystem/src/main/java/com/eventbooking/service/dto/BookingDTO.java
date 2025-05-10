@@ -29,9 +29,8 @@ public class BookingDTO {
         this.id = id;
     }
 
-    @JsonIgnore
     public UserDTO getUser() {
-        return user != null && user.getRole() != null && user.getRole().name().equals("admin") ? user : null;
+        return user;
     }
 
     public void setUser(UserDTO user) {

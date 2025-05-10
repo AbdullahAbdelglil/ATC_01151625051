@@ -1,8 +1,11 @@
 package com.eventbooking.service;
 
 import com.eventbooking.service.dto.BookingDTO;
+import com.eventbooking.service.dto.UserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface BookingService {
 
@@ -14,8 +17,9 @@ public interface BookingService {
     // For user only: User can delete his booking
     void deleteByIdAndUserEmail(Long bookingId, String userEmail);
 
-    //For Admin only: get all bookings in the system
-    Page<BookingDTO> getAllBookings(Pageable pageable);
+    Integer getBookingsCountByEventId(Long eventId);
 
     boolean existsByUserEmailAndEventId(String email, Long eventId);
+
+    List<UserDTO> getUsersByEventId(Long id);
 }
