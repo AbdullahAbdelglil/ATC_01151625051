@@ -52,10 +52,10 @@ public class UserController {
     }
 
     @GetMapping("/bookings")
-    public ResponseEntity<List<BookingDTO>> getBookings(Pageable pageable) {
+    public ResponseEntity<List<UserViewBookingDTO>> getBookings(Pageable pageable) {
         log.debug("REST request to get bookings");
-        Page<BookingDTO> page = userBookingService.getUserBookings(pageable);
-        return ResponseEntity.ok().body(page.getContent());
+        List<UserViewBookingDTO> userBookings = userBookingService.getUserBookings(pageable);
+        return ResponseEntity.ok().body(userBookings);
     }
 
     @DeleteMapping("/cancel-booking/{bookingId}")

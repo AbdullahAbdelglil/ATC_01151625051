@@ -42,6 +42,7 @@ public class BookingServiceImpl implements BookingService {
     public BookingDTO save(BookingDTO bookingDTO) {
         log.debug("Request to save Booking : {}", bookingDTO);
         Booking booking = bookingMapper.toEntity(bookingDTO);
+
         booking = bookingRepository.save(booking);
 
         UserDTO userDTO = customBookingMapper.mapEmailToUserDTO(booking.getUserEmail());

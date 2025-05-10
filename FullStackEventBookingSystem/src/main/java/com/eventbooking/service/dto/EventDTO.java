@@ -6,7 +6,7 @@ import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
+
 
 /**
  * A DTO for the {@link com.eventbooking.domain.Event} entity.

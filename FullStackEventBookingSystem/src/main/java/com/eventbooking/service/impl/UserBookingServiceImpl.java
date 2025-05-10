@@ -1,11 +1,15 @@
 package com.eventbooking.service.impl;
 
+import com.eventbooking.domain.User;
 import com.eventbooking.service.*;
 import com.eventbooking.service.dto.*;
 import com.eventbooking.util.SecurityUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserBookingServiceImpl implements UserBookingService {
@@ -29,21 +33,26 @@ public class UserBookingServiceImpl implements UserBookingService {
         EventDTO event = eventService.findOne(eventId).orElseThrow();
 
         BookingDTO bookingDTO = new BookingDTO();
-        bookingDTO.setUser(currentUser);
         bookingDTO.setEvent(event);
+        bookingDTO.setUser(currentUser);
 
         BookingDTO savedBooking =  bookingService.save(bookingDTO);
         return new BookingResponseDTO(savedBooking);
     }
 
     @Override
-    public Page<BookingDTO> getUserBookings(Pageable pageable) {
+    public List<UserViewBookingDTO> getUserBookings(Pageable pageable) {
         UserDTO currentUser = SecurityUtil.getCurrentUser();
         if(currentUser == null) {
             return null;
         }
         String userEmail = currentUser.getEmail();
-        return bookingService.getBookingsByUserEmail(userEmail, pageable);
+        Page<BookingDTO> bookingDTOPage = bookingService.getBookingsByUserEmail(userEmail, pageable);
+        List<UserViewBookingDTO> userViewBookingDTOList = new ArrayList<>();
+        for(var bookingDTO : bookingDTOPage.getContent()) {
+            userViewBookingDTOList.add(new UserViewBookingDTO(bookingDTO));
+        }
+        return userViewBookingDTOList;
     }
 
     @Override
