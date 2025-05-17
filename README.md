@@ -171,4 +171,4 @@ If you have any questions, suggestions, or want to collaborate, feel free to rea
 <a id="fun-fact"></a>
 ## 😄 Fun Fact
 
-All of the frontend was built with **vibe coding** — powered by strong coffee, good music, and a sprinkle of magic ✨☕🎶.
+All of the frontend was built with **vibe coding** using **ChatGPT, V0, GitHub Copilot** powered by strong coffee, and a sprinkle of magic ✨☕🎶.
