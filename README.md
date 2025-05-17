@@ -99,9 +99,9 @@ This project is a full-stack event booking system to facilitate event browsing, 
 <a id="what-you-need-before-starting"></a>
 ## 📋 What You Need Before Starting
 
-- **Java JDK 17 or higher** installed and configured.
-- **Node.js** (v16 or higher) and **npm** installed.
-- A **MySQL database** setup and running, or you can use **JetBrains DataGrip** (Datasource URL, useranme, and password located in **application.properties** file in this path: src/mian/resources.
+- **Java JDK 17 or higher** installed and configured. [Installation Guide ->] (https://youtu.be/ykAhL1IoQUM?si=yPBop8YgLlQZy3i9)
+- **Node.js** (v16 or higher) and **npm** installed. [Installation Guide ->] (https://youtu.be/lt5D2EWZMN0?si=YxvgfdaCbcumVH6i)
+- A **MySQL database** setup and running, or you can use **JetBrains DataGrip** (Datasource URL, useranme, and password located in **application.properties** file in this path: `src/mian/resources`.
 - A modern web browser (Chrome, Firefox, Edge) for testing frontend.
 - Basic familiarity with command line/terminal.
 - Recommended to use IDEs like IntelliJ IDEA for backend and VSCode for frontend.
@@ -178,7 +178,7 @@ ATC_01151625051/
 ---
 
 <a id="contact-me"></a>
-## 📞 Contact Me
+## 📞 Contact
 
 If you have any questions, suggestions, or want to collaborate, feel free to reach out:
 
