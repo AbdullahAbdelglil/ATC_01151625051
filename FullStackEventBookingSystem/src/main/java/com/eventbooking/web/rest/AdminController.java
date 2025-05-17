@@ -93,7 +93,7 @@ public class AdminController {
 
     private String getUpdateInfoMessage(EventDTO eventDTO, EventDTO dbEvent) {
         String message = "";
-        if(!dbEvent.getPrice().equals(eventDTO.getPrice())) {
+        if(dbEvent.getPrice().compareTo((eventDTO.getPrice()))==0) {
             message = "Event '"+ eventDTO.getName()+"' Price Changed from "+ dbEvent.getPrice()+" to "+ eventDTO.getPrice();
         }
         else if (!dbEvent.getVenue().equals(eventDTO.getVenue())) {

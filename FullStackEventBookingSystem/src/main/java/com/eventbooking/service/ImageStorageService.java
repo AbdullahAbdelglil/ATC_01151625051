@@ -42,7 +42,7 @@ public class ImageStorageService {
     }
 
     public Path load(String fileName) {
-        String filePath=uploadDir.toAbsolutePath()+fileName;
+        String filePath=uploadDir.toAbsolutePath()+"\\"+fileName;
         return uploadDir.resolve(filePath).normalize();
     }
 }
