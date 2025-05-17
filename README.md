@@ -62,7 +62,8 @@ This project is a full-stack event booking system to facilitate event browsing, 
 ### 🖥️ Frontend
 
 - Dynamic routing with Next.js.
-- State management using Context API or Redux.
+- State management using Context API.
+- Caching In Session Storage
 - Responsive design for all devices.
 - Integration with backend APIs.
 - **Real-time updates using Server-Sent Events (SSE) to notify users immediately when changes occur (e.g., admin actions).**
@@ -164,7 +165,7 @@ If you have any questions, suggestions, or want to collaborate, feel free to rea
 - **Email:** abdullah.abduljalil.zaky@gmail.com  
 - **Phone:** 01151625051  
 - **GitHub:** You are in 😄  
-- **LinkedIn:** [linkedin.com/in/abdullahabdelglil](https://www.linkedin.com/in/abdullah-abdelgalil-aa583a285)
+- **LinkedIn:** [linkedin.com/in/abdullahabdelglil](https://www.linkedin.com/in/abdullah-abdulgalil-aa583a285?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
 
 ---
 
