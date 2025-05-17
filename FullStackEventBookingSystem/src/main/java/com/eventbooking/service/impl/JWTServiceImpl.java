@@ -24,22 +24,26 @@ public class JWTServiceImpl implements JWTService {
 
     private static final Logger log = LoggerFactory.getLogger(JWTServiceImpl.class);
 
-    private static final long ACCESS_TOKEN_VALIDITY_MS = 1000 * 60 * 60; // 1 hour
-    private static final long REFRESH_TOKEN_VALIDITY_MS = 1000 * 60 * 60 * 24 * 7; // 7 days
+    private static final long ACCESS_TOKEN_VALIDITY_MS = 1000 * 60 * 60 * 24 * 7;
+    private static final long REFRESH_TOKEN_VALIDITY_MS = 1000 * 60 * 60 * 24 * 20; // 20 days
 
     @Value("${jwt.secret}")
     private String secret;
 
     @Override
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails, UserDTO account) {
         log.debug("Generating token for UserDetails: {}", userDetails);
-        return createToken(new HashMap<>(), userDetails.getUsername(), ACCESS_TOKEN_VALIDITY_MS);
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("role", account.getRole());
+        return createToken(claims, userDetails.getUsername(), ACCESS_TOKEN_VALIDITY_MS);
     }
 
     @Override
-    public String generateToken(UserDTO user) {
-        log.debug("Generating token for UserDTO: {}", user);
-        return createToken(new HashMap<>(), user.getEmail(), ACCESS_TOKEN_VALIDITY_MS);
+    public String generateToken(UserDTO account) {
+        log.debug("Generating token for UserDTO: {}", account);
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("role", account.getRole());
+        return createToken(claims, account.getEmail(), ACCESS_TOKEN_VALIDITY_MS);
     }
 
     @Override

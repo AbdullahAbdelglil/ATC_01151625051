@@ -6,6 +6,7 @@ import com.eventbooking.service.BookingService;
 import com.eventbooking.service.dto.BookingDTO;
 import com.eventbooking.service.dto.EventDTO;
 import com.eventbooking.service.dto.UserDTO;
+import com.eventbooking.service.dto.UserViewEventDetailsDTO;
 import com.eventbooking.service.mapper.BookingMapper;
 
 import com.eventbooking.service.mapper.CustomBookingMapper;
@@ -17,8 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -46,15 +45,14 @@ public class BookingServiceImpl implements BookingService {
         booking = bookingRepository.save(booking);
 
         UserDTO userDTO = customBookingMapper.mapEmailToUserDTO(booking.getUserEmail());
-        EventDTO eventDTO = customBookingMapper.mapIdToEventDTO(booking.getEventId());
-
-        return new BookingDTO(booking.getId(), userDTO, eventDTO, booking.getBookingDate());
+        UserViewEventDetailsDTO eventDetailsDTO = customBookingMapper.mapIdToEventDetailsDTO(booking.getEventId());
+        return new BookingDTO(booking.getId(), userDTO, eventDetailsDTO, booking.getBookingDate());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<BookingDTO> getBookingsByUserEmail(String userEmail, Pageable pageable) {
-        return bookingRepository.findByUserEmail(userEmail, pageable).map(bookingMapper::toDto);
+        return bookingRepository.findByUserEmailOrderByBookingDateDesc(userEmail, pageable).map(bookingMapper::toDto);
     }
 
     @Override

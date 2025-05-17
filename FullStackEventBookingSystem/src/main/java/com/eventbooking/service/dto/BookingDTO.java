@@ -7,17 +7,17 @@ import java.util.Date;
 public class BookingDTO {
     private Long id;
     private UserDTO user;
-    private EventDTO event;
+    private UserViewEventDetailsDTO event;
     private Date bookingDate;
 
-    public BookingDTO(Long id, UserDTO user, EventDTO event, Date bookingDate) {
+    public BookingDTO(Long id, UserDTO user, UserViewEventDetailsDTO event, Date bookingDate) {
         this.id = id;
         this.user = user;
         this.event = event;
         this.bookingDate = bookingDate;
     }
 
-    public BookingDTO(Long id, EventDTO event, Date bookingDate) {
+    public BookingDTO(Long id, UserViewEventDetailsDTO event, Date bookingDate) {
         this.id = id;
         this.event = event;
         this.bookingDate = bookingDate;
@@ -42,11 +42,11 @@ public class BookingDTO {
         this.user = user;
     }
 
-    public EventDTO getEvent() {
+    public UserViewEventDetailsDTO getEvent() {
         return event;
     }
 
-    public void setEvent(EventDTO event) {
+    public void setEvent(UserViewEventDetailsDTO event) {
         this.event = event;
     }
 

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 
 /**
@@ -25,7 +26,7 @@ public class EventDTO implements Serializable {
     @Lob
     private String agenda;
 
-    private String category;
+    private Integer categoryId;
 
     @NotNull(message = "is required")
     @Future(message = "must be in the future")
@@ -36,8 +37,11 @@ public class EventDTO implements Serializable {
 
     private BigDecimal price = new BigDecimal("0.0");
 
-    @NotBlank(message = "is required")
     private String imageUrl;
+
+    private Date createdAt;
+
+    private Date updatedAt;
 
     public EventDTO() {
     }
@@ -46,7 +50,7 @@ public class EventDTO implements Serializable {
                     String name,
                     String description,
                     String agenda,
-                    String category,
+                    Integer categoryId,
                     LocalDate date,
                     String venue,
                     BigDecimal price,
@@ -55,7 +59,7 @@ public class EventDTO implements Serializable {
         this.name = name;
         this.description = description;
         this.agenda = agenda;
-        this.category = category;
+        this.categoryId = categoryId;
         this.date = date;
         this.venue = venue;
         this.price = price;
@@ -94,12 +98,12 @@ public class EventDTO implements Serializable {
         this.agenda = agenda;
     }
 
-    public String getCategory() {
-        return category;
+    public Integer getCategory() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public LocalDate getDate() {
@@ -132,6 +136,22 @@ public class EventDTO implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override

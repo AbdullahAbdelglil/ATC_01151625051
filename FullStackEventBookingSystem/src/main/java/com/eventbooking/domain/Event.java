@@ -6,6 +6,7 @@ import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -32,8 +33,8 @@ public class Event implements Serializable {
     @Column(name = "agenda")
     private String agenda;
 
-    @Column(name = "category")
-    private String category;
+    @Column(name = "category_Id")
+    private Integer categoryId;
 
     @Column(name = "date", nullable = false)
     private LocalDate date;
@@ -47,6 +48,12 @@ public class Event implements Serializable {
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
     public Event() {
     }
 
@@ -54,7 +61,7 @@ public class Event implements Serializable {
                  String name,
                  String description,
                  String agenda,
-                 String category,
+                 Integer categoryId,
                  LocalDate date,
                  String venue,
                  BigDecimal price,
@@ -63,7 +70,7 @@ public class Event implements Serializable {
         this.name = name;
         this.description = description;
         this.agenda = agenda;
-        this.category = category;
+        this.categoryId = categoryId;
         this.date = date;
         this.venue = venue;
         this.price = price;
@@ -102,12 +109,12 @@ public class Event implements Serializable {
         this.agenda = agenda;
     }
 
-    public String getCategory() {
-        return category;
+    public Integer getCategory() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public LocalDate getDate() {
@@ -142,6 +149,22 @@ public class Event implements Serializable {
         this.imageUrl = imgUrl;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -161,7 +184,7 @@ public class Event implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", category='" + getCategory() + "'" +
+            ", categoryId='" + getCategory() + "'" +
             ", date='" + getDate() + "'" +
             ", venue='" + getVenue() + "'" +
             ", price=" + getPrice() +

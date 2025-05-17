@@ -1,8 +1,7 @@
 package com.eventbooking.service.impl;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 import com.eventbooking.domain.Event;
 import com.eventbooking.repository.EventRepository;
@@ -13,11 +12,10 @@ import com.eventbooking.service.dto.HomePageEventDTO;
 import com.eventbooking.service.mapper.EventMapper;
 import com.eventbooking.util.HomePageUtil;
 import com.eventbooking.web.errors.BadRequestAlertException;
+import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -85,15 +83,19 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<HomePageEventDTO> getHomePageEvents(Pageable pageable) {
+    public Page<HomePageEventDTO> getHomePageEvents(Pageable pageable, Integer categoryId) throws IOException {
         LOG.debug("Request to get all Events for home page");
-        Page<HomePageEventDTO> page = eventRepository.findAllHomePageEvents(pageable);
+        Page<HomePageEventDTO> page;
+        page = eventRepository.findAllHomePageEvents(pageable);
+        return getHomePageEventDTOS(pageable, page);
+    }
 
+    public PageImpl<HomePageEventDTO> getHomePageEventDTOS(Pageable pageable, Page<HomePageEventDTO> page) throws IOException {
         List<HomePageEventDTO> content = page.getContent();
         for (HomePageEventDTO event : content) {
             event.setBooked(HomePageUtil.bookedEvent(event.getId()));
+            event.setCategory(HomePageUtil.getCategoryTitle(event.getCategoryId()));
         }
-
         return new PageImpl<>(content, pageable, page.getTotalElements());
     }
 
@@ -109,6 +111,7 @@ public class EventServiceImpl implements EventService {
         EventDTO eventDTO = findOne(id).orElseThrow();
         Long eventId = eventDTO.getId();
         UserViewEventDetailsDTO eventDetailsDTO = new UserViewEventDetailsDTO(eventDTO);
+        eventDetailsDTO.setCategoryName(HomePageUtil.getCategoryTitle(eventDetailsDTO.getCategory()));
         eventDetailsDTO.setBooked(HomePageUtil.bookedEvent(eventId));
         return eventDetailsDTO;
     }
@@ -124,6 +127,13 @@ public class EventServiceImpl implements EventService {
         eventRepository.deleteById(id);
     }
 
+    @Override
+    public void addImageToEvent(Long eventId, String imageUrl) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event not found with ID: " + eventId));
+        event.setImageUrl(imageUrl);
+        eventRepository.save(event);
+    }
 
     private void checkUserInputs(Long id, EventDTO eventDTO) throws BadRequestAlertException {
         if (eventDTO.getId() == null) {

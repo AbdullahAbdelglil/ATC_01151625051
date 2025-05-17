@@ -8,8 +8,6 @@ import jakarta.validation.constraints.Size;
 
 public class SignUpRequestDTO {
 
-    private Long id;
-
     @NotBlank(message = "is required")
     private String firstName;
 
@@ -31,24 +29,14 @@ public class SignUpRequestDTO {
     public SignUpRequestDTO() {
     }
 
-    public SignUpRequestDTO(Long id,
-                            String firstName,
+    public SignUpRequestDTO(String firstName,
                             String lastName,
                             String email,
                             String password) {
-        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {

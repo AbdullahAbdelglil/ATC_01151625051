@@ -2,8 +2,8 @@ package com.eventbooking.service.mapper;
 
 import com.eventbooking.service.EventService;
 import com.eventbooking.service.UserService;
-import com.eventbooking.service.dto.EventDTO;
 import com.eventbooking.service.dto.UserDTO;
+import com.eventbooking.service.dto.UserViewEventDetailsDTO;
 import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
@@ -24,8 +24,8 @@ public class CustomBookingMapper {
         return userService.findOne(email).orElseThrow();
     }
 
-    @Named("idToEventDTO")
-    public EventDTO mapIdToEventDTO(Long eventId) {
-        return eventService.findOne(eventId).orElseThrow();
+    @Named("idToEventDetailsDTO")
+    public UserViewEventDetailsDTO mapIdToEventDetailsDTO(Long eventId) {
+        return new UserViewEventDetailsDTO(eventService.findOne(eventId).orElseThrow());
     }
 }

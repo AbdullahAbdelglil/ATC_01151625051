@@ -1,7 +1,9 @@
 package com.eventbooking.service;
 
+import java.io.IOException;
 import java.util.Optional;
 
+import com.eventbooking.domain.Category;
 import com.eventbooking.service.dto.EventDTO;
 import com.eventbooking.service.dto.UserViewEventDetailsDTO;
 import com.eventbooking.service.dto.HomePageEventDTO;
@@ -22,8 +24,8 @@ public interface EventService {
 
     Page<EventDTO> findAll(Pageable pageable);
 
-    Page<HomePageEventDTO> getHomePageEvents(Pageable pageable);
-
+    Page<HomePageEventDTO> getHomePageEvents(Pageable pageable, Integer categoryId) throws IOException;
+    
     Optional<EventDTO> findOne(Long id);
 
     UserViewEventDetailsDTO getEventDetails(Long id);
@@ -31,4 +33,6 @@ public interface EventService {
     boolean existsById(Long id);
 
     void delete(Long id);
+
+    void addImageToEvent(Long eventId, String imageUrl);
 }

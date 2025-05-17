@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 () -> new IllegalArgumentException("Invalid email or password"));
 
         String accessToken = jwtService.generateToken(user);
-        String refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("role", user.getRole());
+        String refreshToken = jwtService.generateRefreshToken(claims, user);
 
         JwtAuthenticationResponse response = new JwtAuthenticationResponse();
         response.setAccessToken(accessToken);
@@ -67,7 +70,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public JwtAuthenticationResponse refreshToken(RefreshTokenRequestDTO refreshTokenRequestDTO) {
-        String refreshToken = refreshTokenRequestDTO.getToken();
+        String refreshToken = refreshTokenRequestDTO.getRefreshToken();
         String userEmail = jwtService.extractUserName(refreshToken);
         UserDTO user = userService.findOne(userEmail).orElseThrow();
         UserDetails userDetails = userService.userDetailsService().loadUserByUsername(user.getEmail());
@@ -77,7 +80,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         JwtAuthenticationResponse response = new JwtAuthenticationResponse();
-        String jwtToken = jwtService.generateToken(userDetails);
+        UserDTO account = userService.findOne(user.getEmail()).orElseThrow();
+        String jwtToken = jwtService.generateToken(userDetails, account);
         response.setAccessToken(jwtToken);
         response.setRefreshToken(refreshToken);
         return response;

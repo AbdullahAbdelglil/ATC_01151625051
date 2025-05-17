@@ -18,6 +18,7 @@ public class UserViewEventDetailsDTO extends EventDTO {
     }
 
     private boolean booked;
+    private String categoryName;
 
     public boolean isBooked() {
         return booked;
@@ -25,5 +26,13 @@ public class UserViewEventDetailsDTO extends EventDTO {
 
     public void setBooked(boolean booked) {
         this.booked = booked;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String category) {
+        this.categoryName = category;
     }
 }

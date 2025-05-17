@@ -12,7 +12,7 @@ public interface BookingMapper extends EntityMapper<BookingDTO, Booking> {
 
     @Override
     @Mapping(source = "userEmail", target = "user", qualifiedByName = "emailToUserDTO")
-    @Mapping(source = "eventId", target = "event", qualifiedByName = "idToEventDTO")
+    @Mapping(source = "eventId", target = "event", qualifiedByName = "idToEventDetailsDTO")
     BookingDTO toDto(Booking booking);
 
     @Override

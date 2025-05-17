@@ -7,13 +7,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 
+import reactor.core.publisher.Sinks;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -24,21 +28,25 @@ public class UserController {
 
     private final EventService eventService;
 
+    private final Sinks.Many<String> sink = Sinks.many().multicast().onBackpressureBuffer();
+
     public UserController(UserBookingService userBookingService,
                           EventService eventService) {
         this.userBookingService = userBookingService;
         this.eventService = eventService;
     }
 
-    @GetMapping("/home-page")
-    public ResponseEntity<List<HomePageEventDTO>> getHomePageEvents(Pageable pageable) {
+    @GetMapping("/homepage")
+    public ResponseEntity<List<HomePageEventDTO>> getHomePageEvents(Pageable pageable,
+                                                                    @RequestParam(required = false) Integer categoryId) throws IOException {
         log.debug("REST request to get the home page");
-        Page<HomePageEventDTO> page = eventService.getHomePageEvents(pageable);
+        Page<HomePageEventDTO> page;
+        page = eventService.getHomePageEvents(pageable, categoryId);
         return ResponseEntity.ok().body(page.getContent());
     }
 
-    @GetMapping("/event-details/{eventId}")
-    public ResponseEntity<EventDTO> getEventDetails(@PathVariable Long eventId) {
+    @GetMapping("/event/{eventId}")
+    public ResponseEntity<UserViewEventDetailsDTO> getEventDetails(@PathVariable Long eventId) {
         log.debug("REST request to get event details by id {}", eventId);
         UserViewEventDetailsDTO eventDetails = eventService.getEventDetails(eventId);
         return ResponseEntity.ok().body(eventDetails);
@@ -64,4 +72,5 @@ public class UserController {
         userBookingService.cancelBooking(bookingId);
         return ResponseEntity.noContent().build();
     }
+
 }

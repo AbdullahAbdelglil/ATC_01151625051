@@ -3,12 +3,14 @@ package com.eventbooking.service.impl;
 import com.eventbooking.domain.User;
 import com.eventbooking.service.*;
 import com.eventbooking.service.dto.*;
+import com.eventbooking.util.HomePageUtil;
 import com.eventbooking.util.SecurityUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -31,9 +33,9 @@ public class UserBookingServiceImpl implements UserBookingService {
             return null;
         }
         EventDTO event = eventService.findOne(eventId).orElseThrow();
-
+        UserViewEventDetailsDTO eventDetailsDTO = new UserViewEventDetailsDTO(event);
         BookingDTO bookingDTO = new BookingDTO();
-        bookingDTO.setEvent(event);
+        bookingDTO.setEvent(eventDetailsDTO);
         bookingDTO.setUser(currentUser);
 
         BookingDTO savedBooking =  bookingService.save(bookingDTO);
