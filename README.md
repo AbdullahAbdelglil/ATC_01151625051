@@ -73,7 +73,7 @@ This project is a full-stack event booking system to facilitate event browsing, 
 - RESTful API endpoints.
 - Security with Spring Security.
 - Database integration with JPA/Hibernate.
-- Remote Database Deployment on Railway.
+- Remote database hosting and deployment managed via Railway, ensuring reliable and scalable cloud infrastructure. (Test it out: https://railway.com/invite/6huvbWAWktK)
 - Session and authentication management.
 - Role-based access control (RBAC) to differentiate permissions between users and admins.
 - Authentication and authorization implemented using JSON Web Tokens (JWT).
