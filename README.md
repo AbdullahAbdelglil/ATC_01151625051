@@ -18,8 +18,6 @@ A comprehensive full-stack event booking system that allows users to browse and 
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
 - [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
 
 ---
 
@@ -113,8 +111,11 @@ This project is a full-stack event booking system to facilitate event browsing, 
 ## 📂 Project Structure
 
 ATC_01151625051/
+
 ├── FullStackEventBookingSystem/    # Backend (Spring Boot)
+
 ├── frontend-Next JS/               # Frontend (Next.js)
+
 └── README.md                       # Project documentation
 
 ---
@@ -128,3 +129,9 @@ If you have any questions, suggestions, or want to collaborate, feel free to rea
 - **Phone:** 01151625051
 - **GitHub:** You are in 😄  
 - **LinkedIn:** [linkedin.com/in/abdullahabdelglil](https://www.linkedin.com/in/abdullah-abdulgalil-aa583a285)
+
+---
+
+## 😄 Fun Fact
+
+All of the frontend was built with **vibe coding** — powered by strong coffee, good music, and a sprinkle of magic ✨☕🎶.
