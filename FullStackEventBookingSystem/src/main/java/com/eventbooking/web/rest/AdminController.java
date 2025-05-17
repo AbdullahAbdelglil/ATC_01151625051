@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,14 +94,12 @@ public class AdminController {
 
     private String getUpdateInfoMessage(EventDTO eventDTO, EventDTO dbEvent) {
         String message = "";
-        if(dbEvent.getPrice().compareTo((eventDTO.getPrice()))==0) {
-            message = "Event '"+ eventDTO.getName()+"' Price Changed from "+ dbEvent.getPrice()+" to "+ eventDTO.getPrice();
-        }
-        else if (!dbEvent.getVenue().equals(eventDTO.getVenue())) {
-            message = "Event '"+ eventDTO.getName()+"' Venue Changed to "+ eventDTO.getVenue();
-        }
-        else if (!dbEvent.getDate().equals(eventDTO.getDate())) {
-            message = "Event '"+ eventDTO.getName()+"' Date Changed to "+ eventDTO.getDate();
+        if (dbEvent.getPrice().compareTo((eventDTO.getPrice())) == 0) {
+            message = "Event '" + eventDTO.getName() + "' Price Changed from " + dbEvent.getPrice() + " to " + eventDTO.getPrice();
+        } else if (!dbEvent.getVenue().equals(eventDTO.getVenue())) {
+            message = "Event '" + eventDTO.getName() + "' Venue Changed to " + eventDTO.getVenue();
+        } else if (!dbEvent.getDate().equals(eventDTO.getDate())) {
+            message = "Event '" + eventDTO.getName() + "' Date Changed to " + eventDTO.getDate();
         }
         return message;
     }
