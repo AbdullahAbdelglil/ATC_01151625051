@@ -21,6 +21,7 @@ A comprehensive full-stack event booking system that allows users to browse and 
 - [Fun Fact](#fun-fact)
 ---
 
+<a id="overview"></a>
 ## 🧾 Overview
 
 This project is a full-stack event booking system to facilitate event browsing, booking, and management. It consists of:
@@ -30,8 +31,10 @@ This project is a full-stack event booking system to facilitate event browsing, 
 
 ---
 
+<a id="features"></a>
 ## ✨ Features
 
+<a id="user-features"></a>
 ### 👤 User Features
 
 - User registration and login.
@@ -39,7 +42,7 @@ This project is a full-stack event booking system to facilitate event browsing, 
 - Book events easily.
 - Manage bookings: view and cancel.
 
-
+<a id="admin-features"></a>
 ### 🛠️ Admin Features
 
 - Create, update, and delete events.
@@ -48,8 +51,10 @@ This project is a full-stack event booking system to facilitate event browsing, 
 
 ---
 
+<a id="advanced-features"></a>
 ## 🚀 Advanced Features
 
+<a id="frontend"></a>
 ### 🖥️ Frontend
 
 - Dynamic routing with Next.js.
@@ -58,6 +63,7 @@ This project is a full-stack event booking system to facilitate event browsing, 
 - Integration with backend APIs.
 - **Real-time updates using Server-Sent Events (SSE) to notify users immediately when changes occur (e.g., admin actions).**
 
+<a id="backend"></a>
 ### ⚙️ Backend
 
 - RESTful API endpoints.
@@ -71,6 +77,7 @@ This project is a full-stack event booking system to facilitate event browsing, 
 
 ---
 
+<a id="tech-stack"></a>
 ## 🛠️ Tech Stack
 
 - Frontend: Next.js, TypeScript
@@ -81,15 +88,10 @@ This project is a full-stack event booking system to facilitate event browsing, 
 
 ---
 
-## ⚠️ Important Notes for Testing
-
-- This application uses JWT tokens stored in **localStorage** for authentication.  
-- To test both user and admin roles simultaneously, you need to open two separate browsers (or use incognito/private mode) — one for the user and one for the admin. This is because tokens stored in localStorage are scoped per browser and cannot coexist in the same browser session.
-
----
-
+<a id="getting-started"></a>
 ## 🧪 Getting Started
 
+<a id="backend-setup"></a>
 ### Backend Setup
 
 1. Navigate to the backend directory: `cd FullStackEventBookingSystem`
@@ -98,6 +100,7 @@ This project is a full-stack event booking system to facilitate event browsing, 
 4. Run the backend server using this command: `mvnw spring-boot:run`
 5. Backend will run at `http://localhost:8080`
 
+<a id="frontend-setup"></a>
 ### Frontend Setup
 
 1. Navigate to the frontend directory: `cd frontend-Next JS`
@@ -108,6 +111,7 @@ This project is a full-stack event booking system to facilitate event browsing, 
 
 ---
 
+<a id="project-structure"></a>
 ## 📂 Project Structure
 
 ATC_01151625051/
@@ -128,10 +132,11 @@ If you have any questions, suggestions, or want to collaborate, feel free to rea
 - **Email:** abdullah.abduljalil.zaky@gmail.com
 - **Phone:** 01151625051
 - **GitHub:** You are in 😄  
-- **LinkedIn:** [linkedin.com/in/abdullahabdelglil](https://www.linkedin.com/in/abdullah-abdulgalil-aa583a285)
+- **LinkedIn:** [linkedin.com/in/abdullahabdelglil](https://www.linkedin.com/in/abdullah-abdelgalil-aa583a285)
 
 ---
 
+<a id="fun-fact"></a>
 ## 😄 Fun Fact
 
 All of the frontend was built with **vibe coding** — powered by strong coffee, good music, and a sprinkle of magic ✨☕🎶.
