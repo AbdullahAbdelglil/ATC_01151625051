@@ -19,6 +19,7 @@ A comprehensive full-stack event booking system that allows users to browse and 
 - [Getting Started](#getting-started)
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
+- [Accounts To Use](#accounts-to-use)
 - [Project Structure](#project-structure)
 - [Contact Me](#contact-me)
 - [Fun Fact](#fun-fact)
@@ -61,6 +62,7 @@ This project is a full-stack event booking system to facilitate event browsing, 
 <a id="frontend"></a>
 ### 🖥️ Frontend
 
+- User input validation for both admin and user 
 - Dynamic routing with Next.js.
 - State management using Context API.
 - Caching In Session Storage
@@ -72,6 +74,7 @@ This project is a full-stack event booking system to facilitate event browsing, 
 ### ⚙️ Backend
 
 - RESTful API endpoints.
+- User input validation for both admin and user 
 - Security with Spring Security.
 - Database integration with JPA/Hibernate.
 - Remote database hosting and deployment managed via Railway, ensuring reliable and scalable cloud infrastructure. (Test it out: https://railway.com/invite/6huvbWAWktK)
@@ -97,9 +100,8 @@ This project is a full-stack event booking system to facilitate event browsing, 
 ## 📋 What You Need Before Starting
 
 - **Java JDK 17 or higher** installed and configured.
-- **Maven** (comes bundled with the Spring Boot wrapper).
 - **Node.js** (v16 or higher) and **npm** installed.
-- A **MySQL database** setup and running (if you want to use your own local DB instead of Railway).
+- A **MySQL database** setup and running, or you can use **JetBrains DataGrip** (Datasource URL, useranme, and password located in **application.properties** file in this path: src/mian/resources.
 - A modern web browser (Chrome, Firefox, Edge) for testing frontend.
 - Basic familiarity with command line/terminal.
 - Recommended to use IDEs like IntelliJ IDEA for backend and VSCode for frontend.
@@ -140,6 +142,25 @@ This project is a full-stack event booking system to facilitate event browsing, 
 4. Run the frontend development server:  
    `npm run dev`
 5. Frontend will be running at: `http://localhost:3000`
+---
+
+<a id="accounts-to-use"></a>
+## 🧪 Fake account to test:
+
+**Admin**: 
+- email: `abdullah@gmail.com`
+- password: `Abdullah@2002`
+
+**User**
+1.
+email: `ali@gmail.com`
+password: `Ali@1234` 
+
+2.
+email: `doe@gmail.com`
+password: `Doe@1234`
+
+You can add a new account from the registration page also if u need.
 
 ---
 
