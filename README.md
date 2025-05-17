@@ -14,11 +14,15 @@ A comprehensive full-stack event booking system that allows users to browse and 
   - [Frontend](#frontend)
   - [Backend](#backend)
 - [Tech Stack](#tech-stack)
+- [What You Need Before Starting](#what-you-need-before-starting)
+- [Important Notes for Testing](#important-notes-for-testing)
 - [Getting Started](#getting-started)
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
 - [Project Structure](#project-structure)
+- [Contact Me](#contact-me)
 - [Fun Fact](#fun-fact)
+
 ---
 
 <a id="overview"></a>
@@ -69,10 +73,10 @@ This project is a full-stack event booking system to facilitate event browsing, 
 - RESTful API endpoints.
 - Security with Spring Security.
 - Database integration with JPA/Hibernate.
-- Remote Database Deployment on Railway
-- Session and authentication management.  
-- Role-based access control (RBAC) to differentiate permissions between users and admins.  
-- Authentication and authorization implemented using JSON Web Tokens (JWT).  
+- Remote Database Deployment on Railway.
+- Session and authentication management.
+- Role-based access control (RBAC) to differentiate permissions between users and admins.
+- Authentication and authorization implemented using JSON Web Tokens (JWT).
 - **Server-Sent Events (SSE) implementation to push real-time notifications to frontend clients, enabling synchronization between admin actions and user interfaces. For example, when an admin performs an update, connected users receive a dialog prompt notifying them of the update and suggesting to refresh the page.**
 
 ---
@@ -82,9 +86,30 @@ This project is a full-stack event booking system to facilitate event browsing, 
 
 - Frontend: Next.js, TypeScript
 - Backend: Spring Boot, Java
-- DataBase: MySQL (hosted remotely on Railway)  
+- Database: MySQL (hosted remotely on Railway)
 - Authentication & Authorization: Spring Security
 - API communication: RESTful APIs
+
+---
+
+<a id="what-you-need-before-starting"></a>
+## 📋 What You Need Before Starting
+
+- **Java JDK 17 or higher** installed and configured.
+- **Maven** (comes bundled with the Spring Boot wrapper).
+- **Node.js** (v16 or higher) and **npm** installed.
+- A **MySQL database** setup and running (if you want to use your own local DB instead of Railway).
+- A modern web browser (Chrome, Firefox, Edge) for testing frontend.
+- Basic familiarity with command line/terminal.
+- Recommended to use IDEs like IntelliJ IDEA for backend and VSCode for frontend.
+
+---
+
+<a id="important-notes-for-testing"></a>
+## ⚠️ Important Notes for Testing
+
+- This application uses JWT tokens stored in **localStorage** for authentication.
+- To test both user and admin roles simultaneously, you need to open two separate browsers (or use incognito/private mode) — one for the user and one for the admin. This is because tokens stored in localStorage are scoped per browser and cannot coexist in the same browser session.
 
 ---
 
@@ -94,20 +119,26 @@ This project is a full-stack event booking system to facilitate event browsing, 
 <a id="backend-setup"></a>
 ### Backend Setup
 
-1. Navigate to the backend directory: `cd FullStackEventBookingSystem`
-2. Open CMD
-3. Build the project using this command: `mvnw clean install`
-4. Run the backend server using this command: `mvnw spring-boot:run`
-5. Backend will run at `http://localhost:8080`
+1. Navigate to the backend directory:  
+   `cd FullStackEventBookingSystem`
+2. Open your terminal or CMD.
+3. Build the project:  
+   `mvnw clean install` (Windows) or `./mvnw clean install` (macOS/Linux)
+4. Run the backend server:  
+   `mvnw spring-boot:run` (Windows) or `./mvnw spring-boot:run` (macOS/Linux)
+5. Backend will be running at: `http://localhost:8080`
 
 <a id="frontend-setup"></a>
 ### Frontend Setup
 
-1. Navigate to the frontend directory: `cd frontend-Next JS`
-2. Open CMD
-3. Install dependencies using this command: `npm install`
-4. Run the frontend development server using this command: `npm run dev`
-5. Frontend will run at `http://localhost:3000`
+1. Navigate to the frontend directory:  
+   `cd frontend-Next JS`
+2. Open your terminal or CMD.
+3. Install dependencies:  
+   `npm install`
+4. Run the frontend development server:  
+   `npm run dev`
+5. Frontend will be running at: `http://localhost:3000`
 
 ---
 
@@ -116,21 +147,25 @@ This project is a full-stack event booking system to facilitate event browsing, 
 
 ATC_01151625051/
 
-├── FullStackEventBookingSystem/    # Backend (Spring Boot)
+├── FullStackEventBookingSystem/ # Backend (Spring Boot)
 
-├── frontend-Next JS/               # Frontend (Next.js)
+├── frontend-Next JS/ # Frontend (Next.js)
 
-└── README.md                       # Project documentation
+└── README.md # Project documentation
+
+--- 
+
 
 ---
 
+<a id="contact-me"></a>
 ## 📞 Contact Me
 
 If you have any questions, suggestions, or want to collaborate, feel free to reach out:
 
 - **Name:** Abdullah Abdelglil  
-- **Email:** abdullah.abduljalil.zaky@gmail.com
-- **Phone:** 01151625051
+- **Email:** abdullah.abduljalil.zaky@gmail.com  
+- **Phone:** 01151625051  
 - **GitHub:** You are in 😄  
 - **LinkedIn:** [linkedin.com/in/abdullahabdelglil](https://www.linkedin.com/in/abdullah-abdelgalil-aa583a285)
 
