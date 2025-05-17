@@ -18,7 +18,7 @@ A comprehensive full-stack event booking system that allows users to browse and 
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
 - [Project Structure](#project-structure)
-
+- [Fun Fact](#fun-fact)
 ---
 
 ## 🧾 Overview
