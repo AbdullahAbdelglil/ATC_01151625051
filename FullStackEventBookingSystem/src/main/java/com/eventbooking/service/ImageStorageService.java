@@ -15,7 +15,7 @@ import java.nio.file.*;
 @Service
 public class ImageStorageService {
 
-    private final Path uploadDir = Paths.get("FullStackEventBookingSystem/uploads").toAbsolutePath().normalize();
+    private final Path uploadDir = Paths.get("uploads").toAbsolutePath().normalize();
 
     public ImageStorageService() {
         try {
