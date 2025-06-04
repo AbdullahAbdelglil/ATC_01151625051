@@ -17,7 +17,6 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
-
     try {
       // Call login API
       const { accessToken, refreshToken } = await login({ email, password });

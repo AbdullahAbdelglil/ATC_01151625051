@@ -45,7 +45,7 @@ public class Event implements Serializable {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "image_url")
     private String imageUrl;
 
     @Column(name = "created_at")

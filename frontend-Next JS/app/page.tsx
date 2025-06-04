@@ -118,7 +118,7 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
-
++
         {/* Features Section */}
         <section id="features" className="py-24 bg-[#0B0F19] text-center">
           <div className="container max-w-4xl mx-auto space-y-8">

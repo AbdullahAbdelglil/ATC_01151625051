@@ -24,6 +24,10 @@ export const register = async (data: SignUpRequest) => {
 };
 
 export const login = async (data: SignInRequest): Promise<JwtAuthResponse> => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('userEmail');
+
   const response = await api.post('/auth/login', data);
   return response.data;
 };
